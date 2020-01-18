@@ -1,0 +1,15 @@
+<%= form_for @changeset, @action, fn f -> %>
+    <div class="form-group">
+        <label class="form-control-label">Email address</label>
+        <div class="input-group input-group-merge">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i data-feather="user"></i></span>
+            </div>
+            <%= email_input(f, :email, class: "form-control", placeholder: "name@example.com", required: "") %>
+        </div>
+    </div>
+    <%= error_tag f, :email %> <br />
+    <div class="mt-4">
+        <button type="submit" class="btn btn-block btn-primary edge-button">Send Reset Link</button>
+    </div>
+<% end %>

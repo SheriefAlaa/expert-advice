@@ -1,0 +1,90 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+    <div class="form-group">
+        <label class="form-control-label">First Name</label>
+        <div class="input-group input-group-merge">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i data-feather="user"></i></span>
+            </div>
+            <%= text_input(f, :firstname, class: "form-control", placeholder: "John", required: "") %>
+        </div>
+    </div>
+    <%= error_tag f, :firstname %> <br />
+
+    <div class="form-group">
+        <label class="form-control-label">Last Name</label>
+        <div class="input-group input-group-merge">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i data-feather="user"></i></span>
+            </div>
+            <%= text_input(f, :lastname, class: "form-control", placeholder: "Doe", required: "") %>
+        </div>
+    </div>
+    <%= error_tag f, :lastname %> <br />
+
+    <div class="form-group">
+        <label class="form-control-label">Email address</label>
+        <div class="input-group input-group-merge">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i data-feather="at-sign"></i></span>
+            </div>
+            <%= email_input(f, :email, class: "form-control", placeholder: "name@example.com", required: "") %>
+        </div>
+    </div>
+    <%= error_tag f, :email %> <br />
+
+    <%= inputs_for f, :credential, fn fp -> %>
+        <label class="form-control-label">Password</label>
+        <div class="input-group input-group-merge">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i data-feather="key"></i></span>
+            </div>
+            <%= password_input fp, :password, class: "form-control", id: "input-password", placeholder: gettext("Password"), required: "" %>
+
+            <div class="input-group-append">
+                <span class="input-group-text">
+                    <a href="#" data-toggle="password-text" data-target="#input-password">
+                        <i data-feather="eye"></i>
+                    </a>
+                </span>
+            </div>
+        </div>
+        <%= error_tag fp, :password %> <br />
+
+
+        <label class="form-control-label">Confirm Password</label>
+        <div class="input-group input-group-merge">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i data-feather="key"></i></span>
+            </div>
+
+            <%= password_input fp, :password_confirmation, class: "form-control", id: "input-password2", placeholder: gettext("Confirm password"), required: "" %>
+
+            <div class="input-group-append">
+                <span class="input-group-text">
+                    <a href="#" data-toggle="password-text" data-target="#input-password2">
+                        <i data-feather="eye"></i>
+                    </a>
+                </span>
+            </div>
+        </div>
+        <%= error_tag fp, :password_confirmation %> <br />
+    <% end %>
+
+
+    <div class="my-4">
+        <div class="custom-control custom-checkbox mb-3">
+            <input type="checkbox" class="custom-control-input" id="check-terms" required>
+            <label class="custom-control-label" for="check-terms">I agree to the <a href="../../pages/utility/terms.html">terms and conditions</a></label>
+        </div>
+    </div>
+    <div class="mt-4">
+        <button type="submit" class="btn btn-block btn-primary edge-button">Create my account</button>
+    </div>
+
+<% end %>

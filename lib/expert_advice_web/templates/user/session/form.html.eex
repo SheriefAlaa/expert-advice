@@ -1,0 +1,40 @@
+<%= form_for @changeset, @action, [as: :session], fn f -> %>
+    <div class="form-group">
+        <label class="form-control-label">Email address</label>
+        <div class="input-group input-group-merge">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i data-feather="user"></i></span>
+            </div>
+            <%= email_input(f, :email, class: "form-control", placeholder: "name@example.com", required: "") %>
+        </div>
+    </div>
+    <%= error_tag f, :email %> <br />
+
+    <div class="form-group mb-4">
+        <div class="d-flex align-items-center justify-content-between">
+            <div>
+                <label class="form-control-label">Password</label>
+            </div>
+            <div class="mb-2">
+                <%= link "Lost Password?", to: Routes.password_path(@conn, :new), class: "small text-muted text-underline--dashed border-primary" %>                
+            </div>
+        </div>
+        <div class="input-group input-group-merge">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i data-feather="key"></i></span>
+            </div>
+            <%= password_input f, :password, class: "form-control", placeholder: gettext("Password"), required: "" %>
+            <div class="input-group-append">
+                <span class="input-group-text">
+                    <a href="#" data-toggle="password-text" data-target="#input-password">
+                        <i data-feather="eye"></i>
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <%= error_tag f, :password %> <br />
+    <div class="mt-4">
+        <button type="submit" class="btn btn-block btn-primary edge-button">Sign in</button>
+    </div>
+<% end %>

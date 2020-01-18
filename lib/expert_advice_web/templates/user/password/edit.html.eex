@@ -1,0 +1,41 @@
+<!-- Main content -->
+<section>
+    <div class="container d-flex flex-column">
+        <div class="row align-items-center justify-content-center min-vh-100">
+            <div class="col-md-6 col-lg-5 col-xl-4 py-6 py-md-0">
+                <div>
+                    <div class="mb-5 text-center">
+                        <h6 class="h3 mb-1">Password reset</h6>
+                        <p class="text-muted mb-0">Please choose your new password.</p>
+                    </div>
+                    <span class="clearfix"></span>
+
+                    <%= form_for @changeset, Routes.password_path(@conn, :update, @token), [method: "put"], fn f -> %>
+                      <div class="form-group">
+                        <p>Account: <strong><%= @credential.user.email %></strong> </p>
+                        <%= label f, :password, gettext("New password"), class: "control-label" %>
+                        <%= password_input f, :password, class: "form-control", required: "" %>
+                        <%= error_tag f, :password %>
+                      </div>
+
+                      <div class="form-group">
+                        <%= label f, :password_confirmation, gettext("Confirm new password"), class: "control-label" %>
+                        <%= password_input f, :password_confirmation, class: "form-control", required: "" %>
+                        <%= error_tag f, :password_confirmation %>
+                      </div>
+
+                      <div class="form-group">
+                        <%= submit gettext("Reset password"), class: "btn btn-block btn-primary edge-button" %>
+                      </div>
+                    <% end %>
+
+                    <!-- Links -->
+                    <div class="mt-4 text-center"><small>Not registered?</small>
+                        <%= link("Create account", to: Routes.signup_path(@conn, :new), class: "small font-weight-bold") %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
