@@ -20,6 +20,11 @@ defmodule ExpertAdvice.AccountsTest do
         password_confirmation: @password
       }
     }
+    @update_attrs %{
+      email: "sheriefalaa@outlook.com",
+      firstname: "some updated firstname",
+      lastname: "some updated lastname"
+    }
     @invalid_attrs %{email: nil, firstname: nil, lastname: nil}
 
     def user_fixture() do
@@ -64,13 +69,14 @@ defmodule ExpertAdvice.AccountsTest do
       assert {:error, %Ecto.Changeset{}} = Accounts.create_user(@invalid_attrs)
     end
 
-    # test "update_user/2 with valid data updates the user" do
-    #   user = user_fixture()
-    #   assert {:ok, %User{} = user} = Accounts.update_user(user, @update_attrs)
-    #   assert user.email == "sheriefalaa@outlook.com"
-    #   assert user.firstname == "some updated firstname"
-    #   assert user.lastname == "some updated lastname"
-    # end
+    test "update_user/2 with valid data updates the user" do
+      user = user_fixture()
+      user = ExpertAdvice.Repo.preload(user, :credential)
+      assert {:ok, %User{} = user} = Accounts.update_user(user, @update_attrs)
+      assert user.email == "sheriefalaa@outlook.com"
+      assert user.firstname == "some updated firstname"
+      assert user.lastname == "some updated lastname"
+    end
 
     test "update_user/2 with invalid data returns error changeset" do
       user = user_fixture()
