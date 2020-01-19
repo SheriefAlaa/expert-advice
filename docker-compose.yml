@@ -1,0 +1,24 @@
+version: '3'
+services:
+  db:
+    image: postgres:10.5
+    environment:
+      POSTGRES_USER: expert_advice
+      POSTGRES_PASSWORD: expert_advice
+    volumes:
+      - "/dbs/postgres-db/expert_advice:/var/lib/postgresql/data"
+  web:
+    build: .
+    image: web:latest
+    environment:
+      DATABASE_URL: ecto://expert_advice:expert_advice@db/expert_advice_prod
+      PORT: 80 
+      PGHOST: db 
+      PGPORT: 5432
+      PGUSER: expert_advice
+    command: ./entrypoint.sh 
+    ports:
+      - "80:80"
+      - "443:443"      
+    links:
+      - db
