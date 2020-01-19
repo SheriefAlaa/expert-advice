@@ -19,6 +19,8 @@ apt-get install -f -y certbot
 ENV APP_ROOT /app
 RUN mkdir -p ${APP_ROOT}
 
+EXPOSE 4040
+
 # install and compile dependencies
 ENV MIX_ENV prod
 WORKDIR ${APP_ROOT}

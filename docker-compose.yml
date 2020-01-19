@@ -12,13 +12,12 @@ services:
     image: web:latest
     environment:
       DATABASE_URL: ecto://expert_advice:expert_advice@db/expert_advice_prod
-      PORT: 80 
+      PORT: 4040
       PGHOST: db 
       PGPORT: 5432
       PGUSER: expert_advice
     command: ./entrypoint.sh 
     ports:
-      - "80:80"
-      - "443:443"      
+      - "4040:4040"
     links:
       - db
