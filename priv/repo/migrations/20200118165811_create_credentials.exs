@@ -6,7 +6,7 @@ defmodule ExpertAdvice.Repo.Migrations.CreateCredentials do
       add :reset_token, :string
       add :reset_token_created, :utc_datetime
       add :password_hash, :string
-      add :user_id, references(:users, on_delete: :nothing)
+      add :user_id, references(:users, on_delete: :delete_all)
 
       timestamps(type: :timestamptz)
     end

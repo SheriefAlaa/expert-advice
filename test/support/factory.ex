@@ -21,10 +21,18 @@ defmodule ExpertAdvice.Factory do
 
   def question_factory do
     %ExpertAdvice.Questions.Question{
-      slug: "some-slug-" <> Enum.random(1000..90000),
+      slug: "some-slug-" <> Integer.to_string(Enum.random(1000..90000)),
       user: build(:user),
       title: "some-title",
       desc: "some long desc"
+    }
+  end
+
+  def answer_factory do
+    %ExpertAdvice.Questions.Answer{
+      user: build(:user),
+      question: build(:question),
+      body: "long wise answer"
     }
   end
 end

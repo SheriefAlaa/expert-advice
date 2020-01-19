@@ -14,6 +14,7 @@ defmodule ExpertAdvice.Questions.Question do
     timestamps(type: :utc_datetime)
 
     belongs_to(:user, User)
+    has_many(:answers, ExpertAdvice.Questions.Answer)
   end
 
   @doc false

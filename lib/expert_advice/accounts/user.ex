@@ -3,7 +3,7 @@ defmodule ExpertAdvice.Accounts.User do
   import Ecto.Changeset
 
   alias ExpertAdvice.Accounts.Credential
-  alias ExpertAdvice.Questions.Question
+  alias ExpertAdvice.Questions.{Question, Answer}
 
   schema "users" do
     field :email, :string
@@ -16,6 +16,7 @@ defmodule ExpertAdvice.Accounts.User do
     timestamps(type: :utc_datetime)
 
     has_many(:questions, Question)
+    has_many(:answers, Answer)
     has_one(:credential, Credential)
   end
 

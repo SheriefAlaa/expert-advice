@@ -70,4 +70,56 @@ defmodule ExpertAdvice.QuestionsTest do
       assert %Ecto.Changeset{} = Questions.change_question(question)
     end
   end
+
+  describe "answers" do
+    alias ExpertAdvice.Questions.Answer
+
+    @valid_attrs %{body: "some body"}
+    @update_attrs %{body: "some updated body"}
+    @invalid_attrs %{body: nil}
+
+    test "list_answers/0 returns all answers" do
+      _answer = insert(:answer)
+      assert length(Questions.list_answers()) == 1
+    end
+
+    test "get_answer!/1 returns the answer with given id" do
+      answer = insert(:answer)
+      assert Questions.get_answer!(answer.id).id == answer.id
+    end
+
+    test "create_answer/1 with valid data creates a answer" do
+      question = insert(:question)
+      assert {:ok, %Answer{} = answer} = Questions.create_answer(@valid_attrs, question.user, question)
+      assert answer.body == "some body"
+    end
+
+    test "create_answer/1 with invalid data returns error changeset" do
+      question = insert(:question)
+      assert {:error, %Ecto.Changeset{}} = Questions.create_answer(@invalid_attrs, question.user, question)
+    end
+
+    test "update_answer/2 with valid data updates the answer" do
+      answer = insert(:answer)
+      assert {:ok, %Answer{} = answer} = Questions.update_answer(answer, @update_attrs, answer.user, answer.question)
+      assert answer.body == "some updated body"
+    end
+
+    test "update_answer/2 with invalid data returns error changeset" do
+      answer = insert(:answer)
+      assert {:error, %Ecto.Changeset{}} = Questions.update_answer(answer, @invalid_attrs, answer.user, answer.question)
+      assert answer.id == Questions.get_answer!(answer.id).id
+    end
+
+    test "delete_answer/1 deletes the answer" do
+      answer = insert(:answer)
+      assert {:ok, %Answer{}} = Questions.delete_answer(answer, answer.user)
+      assert_raise Ecto.NoResultsError, fn -> Questions.get_answer!(answer.id) end
+    end
+
+    test "change_answer/1 returns a answer changeset" do
+      answer = insert(:answer)
+      assert %Ecto.Changeset{} = Questions.change_answer(answer)
+    end
+  end
 end
