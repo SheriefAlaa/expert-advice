@@ -1,13 +1,17 @@
-<h1>Listing Questions</h1>
+<h2>Expert Advice</h2>
+<h5>Get answers to difficult questions</h5>
 
-<table>
+<!-- Search form -->
+<div class="search active-pink-4 mb-4">
+  <input class="form-control" type="search" placeholder="Filter by tags" aria-label="Search">
+</div>
+
+<table class="mt-5 table">
   <thead>
     <tr>
       <th>Views</th>
       <th>Title</th>
-      <th>Desc</th>
       <th>Tags</th>
-
       <th></th>
     </tr>
   </thead>
@@ -15,17 +19,16 @@
 <%= for question <- @questions do %>
     <tr>
       <td><%= question.views %></td>
-      <td><%= question.title %></td>
-      <td><%= question.desc %></td>
+      <td> <%= link question.title, to: Routes.question_path(@conn, :show, question) %> </td>
+      <td> tags goes here</td>
 
       <td>
-        <span><%= link "Show", to: Routes.question_path(@conn, :show, question) %></span>
-        <span><%= link "Edit", to: Routes.question_path(@conn, :edit, question) %></span>
-        <span><%= link "Delete", to: Routes.question_path(@conn, :delete, question), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        
+        <%= link "Edit", to: Routes.question_path(@conn, :edit, question), class: "btn btn-primary mr-2" %>
+        <%= link "Delete", to: Routes.question_path(@conn, :delete, question), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger" %>
+        
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
-
-<span><%= link "New Question", to: Routes.question_path(@conn, :new) %></span>

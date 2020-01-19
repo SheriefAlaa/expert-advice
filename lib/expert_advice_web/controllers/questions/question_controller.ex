@@ -4,7 +4,7 @@ defmodule ExpertAdviceWeb.Questions.QuestionController do
   alias ExpertAdvice.Questions
   alias ExpertAdvice.Questions.Question
 
-  plug ExpertAdviceWeb.Plugs.SignedinAction when action in [:create, :new, :update, :delete]
+  plug ExpertAdviceWeb.Plugs.SignedinAction when action in [:create, :new, :update, :delete, :edit]
 
   def index(conn, _params) do
     questions = Questions.list_questions()

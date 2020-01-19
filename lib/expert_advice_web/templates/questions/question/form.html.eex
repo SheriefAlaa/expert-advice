@@ -5,15 +5,19 @@
     </div>
   <% end %>
 
-  <%= label f, :title %>
-  <%= text_input f, :title %>
-  <%= error_tag f, :title %>
+  <div class="form-group">
+    <%= label f, :title, for: "title" %>
+    <%= text_input f, :title, class: "form-control", id: "exampleInputPassword1", placeholder: "Enter a title"%>
+    <%= error_tag f, :title %>
+  </div>
 
-  <%= label f, :desc %>
-  <%= text_input f, :desc %>
-  <%= error_tag f, :desc %>
+  <div class="form-group">
+    <%= label f, "Description", for: "desc" %>
+    <%= textarea f, :desc, class: "form-control", id: "exampleInputPassword1", placeholder: "Enter a description", rows: "6"%>
+    <%= error_tag f, :desc %>
+  </div>
 
   <div>
-    <%= submit "Save" %>
+    <%= submit "Save", class: "btn btn-success" %>
   </div>
 <% end %>
