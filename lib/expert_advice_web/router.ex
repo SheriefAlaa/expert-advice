@@ -24,6 +24,7 @@ defmodule ExpertAdviceWeb.Router do
     get "/", Questions.QuestionController, :index
 
     resources "/questions", Questions.QuestionController, except: [:index], param: "slug"
+    resources "/answer", Questions.AnswerController, only: [:create, :delete]
 
     # Login
     get "/account/login", User.SessionController, :new

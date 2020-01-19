@@ -7,13 +7,13 @@
 
   <div class="form-group">
     <%= label f, :title, for: "title" %>
-    <%= text_input f, :title, class: "form-control", id: "exampleInputPassword1", placeholder: "Enter a title"%>
+    <%= text_input f, :title, class: "form-control", placeholder: "Enter a title"%>
     <%= error_tag f, :title %>
   </div>
 
   <div class="form-group">
     <%= label f, "Description", for: "desc" %>
-    <%= textarea f, :desc, class: "form-control", id: "exampleInputPassword1", placeholder: "Enter a description", rows: "10"%>
+    <%= textarea f, :desc, class: "form-control", placeholder: "Enter a description", rows: "10"%>
     <%= error_tag f, :desc %>
   </div>
 

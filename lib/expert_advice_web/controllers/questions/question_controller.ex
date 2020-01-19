@@ -2,9 +2,10 @@ defmodule ExpertAdviceWeb.Questions.QuestionController do
   use ExpertAdviceWeb, :controller
 
   alias ExpertAdvice.Questions
-  alias ExpertAdvice.Questions.Question
+  alias ExpertAdvice.Questions.{Question, Answer}
 
-  plug ExpertAdviceWeb.Plugs.SignedinAction when action in [:create, :new, :update, :delete, :edit]
+  plug ExpertAdviceWeb.Plugs.SignedinAction
+       when action in [:create, :new, :update, :delete, :edit]
 
   def index(conn, _params) do
     questions = Questions.list_questions()
@@ -35,7 +36,12 @@ defmodule ExpertAdviceWeb.Questions.QuestionController do
 
       question ->
         Questions.increment_views(question)
-        render(conn, "show.html", question: question)
+
+        render(conn, "show.html",
+          question: question,
+          answers: Questions.list_answers_for_question(question.id),
+          answer_changeset: Questions.change_answer(%Answer{})
+        )
     end
   end
 

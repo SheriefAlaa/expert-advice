@@ -1,14 +1,38 @@
 <div class="container">
 
-<h3><%= @question.title %></h3>
+  <h3><%= @question.title %></h3>
 
-<blockquote class="blockquote mt-5 mb-5">
-  <p class="mb-0">
-    <pre>
-    <%= @question.desc %>
-    </pre>
-    </p>
-</blockquote>
+  <blockquote class="blockquote mt-5 mb-5">
+    <p class="mb-0">
+      <pre>
+      <%= @question.desc %>
+      </pre>
+      </p>
+  </blockquote>
 
-<span><%= link "Edit", to: Routes.question_path(@conn, :edit, @question), class: "btn btn-primary" %></span>
-<span><%= link "Back", to: Routes.question_path(@conn, :index), class: "btn btn-secondary" %></span>
+  <%= render("answer_form.html", assigns) %>
+
+
+  <%= if !Enum.empty?(@answers) do %>
+    <div class="mt-5 mb-5">
+      <h3>Answers: </h3>
+      <%= for a <- @answers do %>
+      <blockquote class="blockquote">
+        <p class="mb-0">
+            <pre><%= a.body %></pre>
+        </p>
+        <footer class="blockquote-footer"><%= a.user.firstname <> " " <> a.user.lastname %></footer>
+      </blockquote>
+      <span><%= link "Delete this answer", to: Routes.answer_path(@conn, :delete, a), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger" %></span>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="mt-5 mb-5">
+      <h3>No answers yet.</h3>
+    </div>
+  <% end %>
+
+
+  <span><%= link "Edit", to: Routes.question_path(@conn, :edit, @question), class: "btn btn-primary" %></span>
+  <span><%= link "Back", to: Routes.question_path(@conn, :index), class: "btn btn-secondary" %></span>
+</div>

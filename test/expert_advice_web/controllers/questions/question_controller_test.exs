@@ -31,7 +31,7 @@ defmodule ExpertAdviceWeb.Questions.QuestionControllerTest do
   describe "index" do
     test "lists all questions", %{conn: conn} do
       conn = get(conn, Routes.question_path(conn, :index))
-      assert html_response(conn, 200) =~ "Listing Questions"
+      assert html_response(conn, 200) =~ "Get answers to difficult questions"
     end
   end
 
@@ -50,7 +50,7 @@ defmodule ExpertAdviceWeb.Questions.QuestionControllerTest do
       assert redirected_to(conn) == Routes.question_path(conn, :show, slug)
 
       conn = get(conn, Routes.question_path(conn, :show, slug))
-      assert html_response(conn, 200) =~ "Show Question"
+      assert html_response(conn, 200) =~ @create_attrs.title
     end
 
     test "renders errors when data is invalid", %{conn: conn} do

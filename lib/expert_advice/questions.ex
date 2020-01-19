@@ -120,6 +120,14 @@ defmodule ExpertAdvice.Questions do
     Repo.all(Answer)
   end
 
+  def list_answers_for_question(question_id) do
+    from(
+      a in Answer,
+      where: a.question_id == ^question_id,
+      preload: [:user]
+    ) |> Repo.all()
+  end
+
   @doc """
   Gets a single answer.
 
@@ -152,6 +160,7 @@ defmodule ExpertAdvice.Questions do
     %Answer{}
     |> Answer.changeset(attrs, user, question)
     |> Repo.insert()
+    |> IO.inspect
   end
 
   @doc """
