@@ -7,6 +7,11 @@
   http://localhost4040/
   ```
 
+# Run tests
+```
+mix test
+```
+
 # ExpertAdvice Development ENV
 
 To start your Phoenix server:
