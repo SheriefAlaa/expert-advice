@@ -18,4 +18,13 @@ defmodule ExpertAdvice.Factory do
       user: build(:user)
     }
   end
+
+  def question_factory do
+    %ExpertAdvice.Questions.Question{
+      slug: "some-slug-" <> Enum.random(1000..90000),
+      user: build(:user),
+      title: "some-title",
+      desc: "some long desc"
+    }
+  end
 end

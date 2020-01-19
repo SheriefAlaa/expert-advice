@@ -13,7 +13,7 @@ defmodule ExpertAdviceWeb.User.SessionController do
       _ ->
         conn
         |> put_flash(:info, "You already have an account and signed in!")
-        |> redirect(to: Routes.page_path(conn, :index))
+        |> redirect(to: Routes.question_path(conn, :index))
     end
   end
 
@@ -23,7 +23,7 @@ defmodule ExpertAdviceWeb.User.SessionController do
         conn
         |> put_flash(:info, "Welcome back!")
         |> put_session(:current_user_id, user.id)
-        |> redirect(to: Routes.page_path(conn, :index))
+        |> redirect(to: Routes.question_path(conn, :index))
 
       {:error, _} ->
         conn
@@ -39,7 +39,7 @@ defmodule ExpertAdviceWeb.User.SessionController do
     |> delete_resp_header("user_token")
     |> delete_resp_cookie("user_token")
     |> put_flash(:info, "Signed out successfully.")
-    |> redirect(to: Routes.page_path(conn, :index))
+    |> redirect(to: Routes.question_path(conn, :index))
   end
 
   def verify_email(conn, %{"token" => email_activation_token}) do

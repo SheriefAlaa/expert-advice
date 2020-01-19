@@ -12,7 +12,7 @@ defmodule ExpertAdviceWeb.User.SignupController do
       _ ->
         conn
         |> put_flash(:info, "You already have an account and signed in!")
-        |> redirect(to: Routes.page_path(conn, :index))
+        |> redirect(to: Routes.question_path(conn, :index))
     end
   end
 

@@ -8,9 +8,9 @@ defmodule ExpertAdvice.QuestionsTest do
   describe "questions" do
     alias ExpertAdvice.Questions.Question
 
-    @valid_attrs %{desc: "some desc", tags: "some tags", title: "some title"}
-    @update_attrs %{desc: "some updated desc", tags: "some updated tags", title: "some updated title"}
-    @invalid_attrs %{desc: nil, tags: nil, title: nil}
+    @valid_attrs %{desc: "some desc", title: "some title"}
+    @update_attrs %{desc: "some updated desc", title: "some updated title"}
+    @invalid_attrs %{desc: nil, title: nil}
 
     def question_fixture(attrs \\ %{}) do
       credential = insert(:credential)
@@ -36,7 +36,6 @@ defmodule ExpertAdvice.QuestionsTest do
     test "create_question/1 with valid data creates a question" do
       assert {:ok, %Question{} = question} = Questions.create_question(@valid_attrs, insert(:credential).user)
       assert question.desc == "some desc"
-      assert question.tags == "some tags"
       assert question.title == "some title"
     end
 
@@ -49,7 +48,6 @@ defmodule ExpertAdvice.QuestionsTest do
       user = ExpertAdvice.Accounts.get_user!(question.user_id)
       assert {:ok, %Question{} = question} = Questions.update_question(question, @update_attrs, user)
       assert question.desc == "some updated desc"
-      assert question.tags == "some updated tags"
       assert question.title == "some updated title"
     end
 
@@ -62,7 +60,8 @@ defmodule ExpertAdvice.QuestionsTest do
 
     test "delete_question/1 deletes the question" do
       question = question_fixture()
-      assert {:ok, %Question{}} = Questions.delete_question(question)
+      question = ExpertAdvice.Repo.preload(question, :user)
+      assert {:ok, %Question{}} = Questions.delete_question(question, question.user)
       assert_raise Ecto.NoResultsError, fn -> Questions.get_question!(question.id) end
     end
 

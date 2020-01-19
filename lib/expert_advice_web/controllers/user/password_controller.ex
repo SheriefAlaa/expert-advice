@@ -30,7 +30,7 @@ defmodule ExpertAdviceWeb.User.PasswordController do
       nil ->
         conn
         |> put_flash(:error, "We have no record of your email.")
-        |> redirect(to: Routes.page_path(conn, :index))
+        |> redirect(to: Routes.question_path(conn, :index))
 
       credential ->
         case Tools.reset_password_token(credential) do
@@ -41,7 +41,7 @@ defmodule ExpertAdviceWeb.User.PasswordController do
 
             conn
             |> put_flash(:info, "You will receive a password reset link in your #{email} inbox soon.")
-            |> redirect(to: Routes.page_path(conn, :index))
+            |> redirect(to: Routes.question_path(conn, :index))
 
           {:error, changeset} ->
             Logger.error("Could not create credential reset: #{inspect(changeset)}")
@@ -110,7 +110,7 @@ defmodule ExpertAdviceWeb.User.PasswordController do
 
               conn
               |> put_flash(:info, "Password reset successfully!")
-              |> redirect(to: Routes.page_path(conn, :index))
+              |> redirect(to: Routes.question_path(conn, :index))
 
             {:error, changeset} ->
 

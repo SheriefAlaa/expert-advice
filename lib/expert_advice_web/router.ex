@@ -13,10 +13,17 @@ defmodule ExpertAdviceWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", ExpertAdviceWeb do
-    pipe_through :browser
+  pipeline :maybe_authenticated_user do
+    plug(:browser)
+    plug(ExpertAdviceWeb.Plugs.AddUserToConn)
+  end
 
-    get "/", PageController, :index
+  scope "/", ExpertAdviceWeb do
+    pipe_through :maybe_authenticated_user
+
+    get "/", Questions.QuestionController, :index
+
+    resources "/questions", Questions.QuestionController, except: [:index], param: "slug"
 
     # Login
     get "/account/login", User.SessionController, :new

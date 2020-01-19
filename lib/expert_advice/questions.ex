@@ -22,6 +22,12 @@ defmodule ExpertAdvice.Questions do
     Repo.all(Question)
   end
 
+  def increment_views(question) do
+    question
+    |> Question.increment_views_changeset()
+    |> Repo.update()
+  end
+
   @doc """
   Gets a single question.
 
@@ -37,6 +43,10 @@ defmodule ExpertAdvice.Questions do
 
   """
   def get_question!(id), do: Repo.get!(Question, id)
+
+  def get_question_by_slug!(slug) do
+    Repo.get_by!(Question, slug: slug)
+  end
 
   @doc """
   Creates a question.
@@ -86,8 +96,12 @@ defmodule ExpertAdvice.Questions do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_question(%Question{} = question) do
-    Repo.delete(question)
+  def delete_question(%Question{} = question, %User{id: user_id}) do
+    if user_id == question.user_id do
+      Repo.delete(question)
+    else
+      {:error, :not_authorized}
+    end
   end
 
   @doc """
