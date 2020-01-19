@@ -1,18 +1,14 @@
-<h1>Show Question</h1>
+<div class="container">
 
-<ul>
+<h3><%= @question.title %></h3>
 
-  <li>
-    <strong>Title:</strong>
-    <%= @question.title %>
-  </li>
-
-  <li>
-    <strong>Desc:</strong>
+<blockquote class="blockquote mt-5 mb-5">
+  <p class="mb-0">
+    <pre>
     <%= @question.desc %>
-  </li>
+    </pre>
+    </p>
+</blockquote>
 
-</ul>
-
-<span><%= link "Edit", to: Routes.question_path(@conn, :edit, @question) %></span>
-<span><%= link "Back", to: Routes.question_path(@conn, :index) %></span>
+<span><%= link "Edit", to: Routes.question_path(@conn, :edit, @question), class: "btn btn-primary" %></span>
+<span><%= link "Back", to: Routes.question_path(@conn, :index), class: "btn btn-secondary" %></span>

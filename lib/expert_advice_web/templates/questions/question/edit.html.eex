@@ -1,5 +1,5 @@
-<h1>Edit Question</h1>
+<h3>Edit Question</h3>
 
 <%= render "form.html", Map.put(assigns, :action, Routes.question_path(@conn, :update, @question)) %>
 
-<span><%= link "Back", to: Routes.question_path(@conn, :index) %></span>
+<span><%= link "Back", to: Routes.question_path(@conn, :index), class: "btn btn-primary mt-2" %></span>
