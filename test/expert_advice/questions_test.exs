@@ -34,19 +34,25 @@ defmodule ExpertAdvice.QuestionsTest do
     end
 
     test "create_question/1 with valid data creates a question" do
-      assert {:ok, %Question{} = question} = Questions.create_question(@valid_attrs, insert(:credential).user)
+      assert {:ok, %Question{} = question} =
+               Questions.create_question(@valid_attrs, insert(:credential).user)
+
       assert question.desc == "some desc"
       assert question.title == "some title"
     end
 
     test "create_question/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Questions.create_question(@invalid_attrs, insert(:credential).user)
+      assert {:error, %Ecto.Changeset{}} =
+               Questions.create_question(@invalid_attrs, insert(:credential).user)
     end
 
     test "update_question/2 with valid data updates the question" do
       question = question_fixture()
       user = ExpertAdvice.Accounts.get_user!(question.user_id)
-      assert {:ok, %Question{} = question} = Questions.update_question(question, @update_attrs, user)
+
+      assert {:ok, %Question{} = question} =
+               Questions.update_question(question, @update_attrs, user)
+
       assert question.desc == "some updated desc"
       assert question.title == "some updated title"
     end
@@ -54,7 +60,10 @@ defmodule ExpertAdvice.QuestionsTest do
     test "update_question/2 with invalid data returns error changeset" do
       question = question_fixture()
       user = ExpertAdvice.Accounts.get_user!(question.user_id)
-      assert {:error, %Ecto.Changeset{}} = Questions.update_question(question, @invalid_attrs, user)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Questions.update_question(question, @invalid_attrs, user)
+
       assert question == Questions.get_question!(question.id)
     end
 
@@ -90,24 +99,35 @@ defmodule ExpertAdvice.QuestionsTest do
 
     test "create_answer/1 with valid data creates a answer" do
       question = insert(:question)
-      assert {:ok, %Answer{} = answer} = Questions.create_answer(@valid_attrs, question.user, question)
+
+      assert {:ok, %Answer{} = answer} =
+               Questions.create_answer(@valid_attrs, question.user, question)
+
       assert answer.body == "some body"
     end
 
     test "create_answer/1 with invalid data returns error changeset" do
       question = insert(:question)
-      assert {:error, %Ecto.Changeset{}} = Questions.create_answer(@invalid_attrs, question.user, question)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Questions.create_answer(@invalid_attrs, question.user, question)
     end
 
     test "update_answer/2 with valid data updates the answer" do
       answer = insert(:answer)
-      assert {:ok, %Answer{} = answer} = Questions.update_answer(answer, @update_attrs, answer.user, answer.question)
+
+      assert {:ok, %Answer{} = answer} =
+               Questions.update_answer(answer, @update_attrs, answer.user, answer.question)
+
       assert answer.body == "some updated body"
     end
 
     test "update_answer/2 with invalid data returns error changeset" do
       answer = insert(:answer)
-      assert {:error, %Ecto.Changeset{}} = Questions.update_answer(answer, @invalid_attrs, answer.user, answer.question)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Questions.update_answer(answer, @invalid_attrs, answer.user, answer.question)
+
       assert answer.id == Questions.get_answer!(answer.id).id
     end
 

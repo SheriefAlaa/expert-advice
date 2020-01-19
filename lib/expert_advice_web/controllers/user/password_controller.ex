@@ -23,7 +23,6 @@ defmodule ExpertAdviceWeb.User.PasswordController do
 
         email ->
           Accounts.get_user_credential(email)
-
       end
 
     case credential do
@@ -35,12 +34,14 @@ defmodule ExpertAdviceWeb.User.PasswordController do
       credential ->
         case Tools.reset_password_token(credential) do
           {:ok, _updated_credential} ->
-
             # ExpertAdvice.Repo.preload(updated_credential, :user)
             # |> Emails.send_password_reset_email()
 
             conn
-            |> put_flash(:info, "You will receive a password reset link in your #{email} inbox soon.")
+            |> put_flash(
+              :info,
+              "You will receive a password reset link in your #{email} inbox soon."
+            )
             |> redirect(to: Routes.question_path(conn, :index))
 
           {:error, changeset} ->
@@ -50,8 +51,6 @@ defmodule ExpertAdviceWeb.User.PasswordController do
             |> put_flash(:error, "Something wrong happened, please try again.")
             |> redirect(to: Routes.password_path(conn, :new))
         end
-
-
     end
   end
 
@@ -113,7 +112,6 @@ defmodule ExpertAdviceWeb.User.PasswordController do
               |> redirect(to: Routes.question_path(conn, :index))
 
             {:error, changeset} ->
-
               conn
               |> render("edit.html",
                 changeset: changeset,
@@ -125,7 +123,6 @@ defmodule ExpertAdviceWeb.User.PasswordController do
     end
   end
 end
-
 
 defmodule ExpertAdviceWeb.Auth.Tools do
   alias ExpertAdvice.Accounts

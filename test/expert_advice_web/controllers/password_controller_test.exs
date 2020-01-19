@@ -29,7 +29,9 @@ defmodule ExpertAdviceWeb.PasswordControllerTest do
     end
 
     test "redirects and shows error if token is bad", %{conn: conn, credential: credential} do
-      conn = get(conn, Routes.password_path(conn, :edit, %{credential | reset_token: "bad_token"}))
+      conn =
+        get(conn, Routes.password_path(conn, :edit, %{credential | reset_token: "bad_token"}))
+
       assert get_flash(conn, :error) =~ "Invalid reset token"
     end
 

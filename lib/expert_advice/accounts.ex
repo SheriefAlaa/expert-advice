@@ -56,7 +56,6 @@ defmodule ExpertAdvice.Accounts do
     |> Repo.insert()
   end
 
-
   def verify_user_email(%User{} = user) do
     user
     |> User.verify_email_changeset()
